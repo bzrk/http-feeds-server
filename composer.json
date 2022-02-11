@@ -1,0 +1,40 @@
+{
+    "name": "bzrk/http-feeds-server",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Wünsche",
+            "email": "thomas@bzrk.de"
+        }
+    ],
+    "require": {
+        "php": ">=8",
+        "ext-json": "*",
+        "bzrk/php-stream": "^0.10.0",
+        "psr/http-message": "^1.0",
+        "psr/log": "^3.0",
+        "bzrk/php-timeunit": "^0.3.0",
+        "webmozart/assert": "^1.10",
+        "ringcentral/psr7": "^1.3"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.4",
+        "friendsofphp/php-cs-fixer": "^3.6",
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bzrk\\HttpFeedsServer\\": "src/Bzrk/HttpFeedsServer"
+        }
+    },
+    "scripts" : {
+        "phpstan": "phpstan analyse -l 9 src tests",
+        "phpcs": "php-cs-fixer fix --config=.php_cs.php --dry-run -v --using-cache=no",
+        "phpcs:fix": "php-cs-fixer fix --config=.php_cs.php",
+        "phpunit": "phpunit --no-coverage",
+        "phpunit:coverage": "phpunit",
+        "test": ["@phpunit:coverage"],
+        "verify": ["@phpcs", "@test", "@phpstan"]
+    }
+}
