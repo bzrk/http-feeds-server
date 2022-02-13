@@ -108,7 +108,7 @@ class HttpFeedsControllerTest extends TestCase
             $time,
             'subject',
             'method',
-            'data'
+            (object) ['test' => 'test']
         );
 
         $collection = new FeedItemCollection($feedItem);
@@ -122,7 +122,13 @@ class HttpFeedsControllerTest extends TestCase
         assertThat($response->getHeaders(), equalTo(['content-type' => ['application/cloudevents-batch+json']]));
         assertJsonStringEqualsJsonString(
             $response->getBody()->getContents(),
-            (string) json_encode([(new FeedItemMapper())->toJsonSerializable($feedItem)])
+            (string) json_encode(
+                [
+                    (new CloudEventMapper())->toJsonSerializable(
+                        (new FeedItemMapper())->toCloudEvent($feedItem)
+                    ),
+                ]
+            )
         );
     }
 }

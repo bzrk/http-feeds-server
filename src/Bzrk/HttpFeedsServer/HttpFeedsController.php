@@ -14,11 +14,13 @@ class HttpFeedsController
     public const PARAM_LAST_EVENT_ID = 'lastEventId';
     public const PARAM_TIMEOUT = 'timeout';
 
-    private FeedItemMapper $mapper;
+    private FeedItemMapper $feedItemMapper;
+    private CloudEventMapper $cloudEventMapper;
 
     public function __construct(private HttpFeedsFetcher $fetcher)
     {
-        $this->mapper = new FeedItemMapper();
+        $this->feedItemMapper = new FeedItemMapper();
+        $this->cloudEventMapper = new CloudEventMapper();
     }
 
     public function __invoke(ServerRequestInterface $request, ?ResponseInterface $response = null): ResponseInterface
@@ -31,7 +33,8 @@ class HttpFeedsController
         );
 
         $data = $this->fetcher->fetch($fetchRequest)->stream()
-            ->map(fn (FeedItem $feedItem) => $this->mapper->toJsonSerializable($feedItem))
+            ->map(fn (FeedItem $feedItem) => $this->feedItemMapper->toCloudEvent($feedItem))
+            ->map(fn (CloudEvent $cloudEvent) => $this->cloudEventMapper->toJsonSerializable($cloudEvent))
             ->toList()
         ;
 

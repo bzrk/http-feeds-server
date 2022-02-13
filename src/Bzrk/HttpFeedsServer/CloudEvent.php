@@ -4,17 +4,24 @@ declare(strict_types=1);
 
 namespace Bzrk\HttpFeedsServer;
 
-class FeedItem
+class CloudEvent
 {
     public function __construct(
+        private string $specVersion,
         private string $id,
         private string $type,
         private string $source,
         private \DateTimeImmutable $time,
         private string $subject,
         private string $method,
-        private \stdClass $data
+        private string $dataContentType,
+        private string $data
     ) {
+    }
+
+    public function specVersion(): string
+    {
+        return $this->specVersion;
     }
 
     public function id(): string
@@ -47,7 +54,12 @@ class FeedItem
         return $this->method;
     }
 
-    public function data(): \stdClass
+    public function dataContentType(): string
+    {
+        return $this->dataContentType;
+    }
+
+    public function data(): string
     {
         return $this->data;
     }
