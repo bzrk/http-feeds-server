@@ -60,3 +60,13 @@ $http = new React\Http\HttpServer(new HttpFeedsController($fetcher));
 $socket = new React\Socket\SocketServer('0.0.0.0:8080');
 $http->listen($socket);
 ```
+
+## Examples
+__Polling__
+http://server.com/inventory
+http://server.com/inventory?lastEvenetId=1223
+
+__LongPolling__
+http://server.com/inventory?timeout=5
+http://server.com/inventory?lastEvenetId=1223&timeout=5
+
