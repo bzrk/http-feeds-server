@@ -1,5 +1,10 @@
 {
     "name": "bzrk/http-feeds-server",
+    "description": "This project is a PHP Implementation of [HTTP Feeds] (https://github.com/http-feeds/http-feeds).",
+    "keywords": [
+        "http feeds",
+        "microservice"
+    ],
     "type": "library",
     "license": "MIT",
     "authors": [
