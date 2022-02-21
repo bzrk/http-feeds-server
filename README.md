@@ -61,6 +61,12 @@ $socket = new React\Socket\SocketServer('0.0.0.0:8080');
 $http->listen($socket);
 ```
 
+## Parameters
+|Name| Type   | Description                        |
+|----|--------|------------------------------------|
+|lastEventId| String | last processing eventid from client|
+|timeout|Integer| enable long polling with specified timeout in seconds |
+
 ## Examples
 __Polling__
 
